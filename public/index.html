@@ -26,16 +26,20 @@
     </div>
 
     <script>
-        fetch('/api/telemetry')
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('os').innerText = data.osType;
-                document.getElementById('arch').innerText = data.architecture;
-                document.getElementById('total-ram').innerText = data.totalRAM;
-                document.getElementById('free-ram').innerText = data.freeRAM;
-                document.getElementById('uptime').innerText = data.uptime;
-            })
-            .catch(err => console.error("Error communicating with telemetry API:", err));
+        function updateDashboard() {
+            fetch('/api/telemetry')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('os').innerText = data.osType;
+                    document.getElementById('arch').innerText = data.architecture;
+                    document.getElementById('total-ram').innerText = data.totalRAM;
+                    document.getElementById('free-ram').innerText = data.freeRAM;
+                    document.getElementById('uptime').innerText = data.uptime;
+                })
+                .catch(err => console.error("Error communicating with telemetry API:", err));
+        }
+        //Run auto every 3s to pull refresh
+        setInterval(updateDashboard,3000);
     </script>
 </body>
 </html>
