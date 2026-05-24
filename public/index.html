@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemetry Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #121214; color: #e1e1e6; margin: 40px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        h1 { color: #00b37e; border-bottom: 2px solid #29292e; padding-bottom: 10px; }
+        .card { background: #202024; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        .metric { font-size: 1.1rem; margin: 15px 0; color: #8d8d99; }
+        span { color: #00b37e; font-weight: bold; float: right; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>System Telemetry Control Center</h1>
+        <div class="card">
+            <div class="metric">Host OS Environment: <span id="os">...</span></div>
+            <div class="metric">Hardware Architecture: <span id="arch">...</span></div>
+            <div class="metric">Total Allocated RAM: <span id="total-ram">...</span></div>
+            <div class="metric">Free Available RAM: <span id="free-ram">...</span></div>
+            <div class="metric">Instance Operational Uptime: <span id="uptime">...</span></div>
+        </div>
+    </div>
+
+    <script>
+        fetch('/api/telemetry')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('os').innerText = data.osType;
+                document.getElementById('arch').innerText = data.architecture;
+                document.getElementById('total-ram').innerText = data.totalRAM;
+                document.getElementById('free-ram').innerText = data.freeRAM;
+                document.getElementById('uptime').innerText = data.uptime;
+            })
+            .catch(err => console.error("Error communicating with telemetry API:", err));
+    </script>
+</body>
+</html>
