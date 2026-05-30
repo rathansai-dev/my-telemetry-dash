@@ -6,7 +6,7 @@ A full-stack cloud monitoring application that extracts live Linux kernel teleme
 
 ## Dashboard Preview
 
-![Dashboard](screenshots/dashboard-mobile.png)
+![Dashboard](screenshots/dashboard-mobile.jpeg)
 
 ---
 
